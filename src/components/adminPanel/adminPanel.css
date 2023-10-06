@@ -1,0 +1,51 @@
+.content-wrapper {
+    padding: 96px;
+    width: 100%;
+    background-color: aliceblue;
+}
+
+.users-search-bar {
+    padding: 8px 12px;
+    width: 100%;
+    outline: none;
+    border: 1px solid grey;
+    border-radius: 4px;
+}
+
+.admin-dashboard-container {
+    padding-left: 0px;
+}
+
+.user-item-container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    border: 1px solid rgb(213, 206, 206);
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    padding-left: 12px;
+    
+}
+
+.item-checkbox-container {
+    min-width: 15%;
+    /* border: 1px solid blue; */
+}
+
+.item-checkbox {
+    height: 16px;
+    width: 16px;
+}
+
+
+.users-column-heading {
+    font-weight: bold;
+    min-width: 15%;
+    /* border: 1px solid blue; */
+}
+
+.user-column-text {
+    min-width: 15%;
+}
