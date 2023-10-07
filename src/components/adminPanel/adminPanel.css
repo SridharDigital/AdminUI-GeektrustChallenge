@@ -49,3 +49,12 @@
 .user-column-text {
     min-width: 15%;
 }
+
+.delete-btn {
+    background-color: #FF5171;
+    color: white;
+    border: none;
+    outline: none;
+    padding: 8px 24px;
+    border-radius: 24px;
+}

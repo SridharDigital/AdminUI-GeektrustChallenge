@@ -6,10 +6,36 @@ import UserItem from "../userItem/UserItem"
 const AdminPanel = () => {
   const [users, setUsers] = useState([])
   const [currentPage, setCurrentPage] = useState(1)
+  const [selectAllChecked, setSelectAllChecked] = useState(false)
+  const usersStartIndex = (currentPage - 1) * 10
+  const usersEndIndex = currentPage * 10
 
   const updateSelectStatus = (userId, selectStatus) => {
     const updatedUsers = users.map((user) => {
       if (userId === user.id) {
+        return {
+          ...user,
+          isSelected: selectStatus,
+        }
+      } else {
+        return {
+          ...user,
+        }
+      }
+    })
+    setUsers(updatedUsers)
+    setSelectAllChecked(selectStatus)
+  }
+
+  const deleteUser = (userId) => {
+    const updatedUsers = users.filter((user) => user.id !== userId)
+    setUsers(updatedUsers)
+  }
+
+  const onClickSelectAll = (event) => {
+    setSelectAllChecked(event.target.checked)
+    const updatedUsers = users.map((user, index) => {
+      if (index >= usersStartIndex && index < usersEndIndex) {
         return {
           ...user,
           isSelected: event.target.checked,
@@ -23,9 +49,10 @@ const AdminPanel = () => {
     setUsers(updatedUsers)
   }
 
-  const deleteUser = (userId) => {
-    const updatedUsers = users.filter((user) => user.id !== userId)
+  const onClickDeleteSelectedUsers = () => {
+    const updatedUsers = users.filter((user) => user.isSelected === false)
     setUsers(updatedUsers)
+    setSelectAllChecked(false)
   }
 
   useEffect(() => {
@@ -46,7 +73,7 @@ const AdminPanel = () => {
     })()
   }, [])
 
-  const currentPageUsers = users.slice(0, 9)
+  const currentPageUsers = users.slice(usersStartIndex, usersEndIndex)
 
   console.log({ users })
 
@@ -60,7 +87,12 @@ const AdminPanel = () => {
       <ul className="admin-dashboard-container">
         <li className="user-item-container">
           <div className="item-checkbox-container">
-            <input type="checkbox" className="item-checkbox" />
+            <input
+              type="checkbox"
+              className="item-checkbox"
+              onClick={onClickSelectAll}
+              checked={selectAllChecked}
+            />
           </div>
           <p className="users-column-heading">Name</p>
           <p className="users-column-heading">Email</p>
@@ -76,6 +108,12 @@ const AdminPanel = () => {
           />
         ))}
       </ul>
+      <div>
+        <button className="delete-btn" onClick={onClickDeleteSelectedUsers}>
+          Delete Selected
+        </button>
+        <div className="pagination-container"></div>
+      </div>
     </div>
   )
 }
